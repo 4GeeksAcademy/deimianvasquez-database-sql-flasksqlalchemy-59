@@ -26,7 +26,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app, db)
 db.init_app(app)
 CORS(app)
-setup_admin(app)
+
+
+# de esta forma el admin no corre en producción
+if os.getenv("FLASK_ENV") == "development":
+    setup_admin(app)
 
 # Handle/serialize errors like a JSON object
 
